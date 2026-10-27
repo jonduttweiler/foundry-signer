@@ -3,4 +3,7 @@ src = "src"
 out = "out"
 libs = ["lib"]
 
+[rpc_endpoints]
+celo_sepolia = "https://forno.celo-sepolia.celo-testnet.org"
+
 # See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options
