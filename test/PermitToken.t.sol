@@ -15,41 +15,31 @@ contract PermitTokenTest is Test {
         token.transfer(target, value);
     }
 
-    function build_digest(
-        address owner,
-        address spender,
-        uint256 value,
-        uint256 deadline
-    ) public view returns (bytes32 digest) {
+    function build_digest(address owner, address spender, uint256 value, uint256 deadline)
+        public
+        view
+        returns (bytes32 digest)
+    {
         bytes32 domainSeparator = token.DOMAIN_SEPARATOR();
         uint256 nonce = token.nonces(owner);
 
-        bytes32 structHash = keccak256(
-            abi.encode(token.TYPEHASH(), owner, spender, value, nonce, deadline)
-        );
+        bytes32 structHash = keccak256(abi.encode(token.TYPEHASH(), owner, spender, value, nonce, deadline));
 
-        digest = keccak256(
-            abi.encodePacked("\x19\x01", domainSeparator, structHash)
-        );
+        digest = keccak256(abi.encodePacked("\x19\x01", domainSeparator, structHash));
         return digest;
     }
 
-    function build_invalid_digest(
-        address owner,
-        address spender,
-        uint256 value,
-        uint256 deadline
-    ) public view returns (bytes32 digest) {
+    function build_invalid_digest(address owner, address spender, uint256 value, uint256 deadline)
+        public
+        view
+        returns (bytes32 digest)
+    {
         bytes32 domainSeparator = token.DOMAIN_SEPARATOR();
         uint256 nonce = token.nonces(owner) + 1;
 
-        bytes32 structHash = keccak256(
-            abi.encode(token.TYPEHASH(), owner, spender, value, nonce, deadline)
-        );
+        bytes32 structHash = keccak256(abi.encode(token.TYPEHASH(), owner, spender, value, nonce, deadline));
 
-        digest = keccak256(
-            abi.encodePacked("\x19\x01", domainSeparator, structHash)
-        );
+        digest = keccak256(abi.encodePacked("\x19\x01", domainSeparator, structHash));
         return digest;
     }
 
@@ -80,6 +70,7 @@ contract PermitTokenTest is Test {
         vm.expectRevert("Invalid signer: signature does not match owner");
         token.permit(alice, bob, 1e18, deadline, v, r, s);
     }
+
     function test_invalidValue() public {
         (address alice, uint256 aliceKey) = makeAddrAndKey("alice");
         address bob = makeAddr("bob");
@@ -91,6 +82,7 @@ contract PermitTokenTest is Test {
         vm.expectRevert("Invalid signer: signature does not match owner");
         token.permit(alice, bob, 2e18, deadline, v, r, s);
     }
+
     function test_expiredSignature() public {
         (address alice, uint256 aliceKey) = makeAddrAndKey("alice");
         address bob = makeAddr("bob");
