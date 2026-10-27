@@ -17,7 +17,7 @@ contract PermitToken is ERC20 {
             "EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)"
         );
 
-    bytes32 constant TYPEHASH =
+    bytes32 constant public TYPEHASH =
         keccak256(
             "Permit(address owner,address spender,uint256 value,uint256 nonce,uint256 deadline)"
         );
@@ -32,9 +32,10 @@ contract PermitToken is ERC20 {
     constructor(
         string memory name,
         string memory symbol,
-        string memory version_
+        string memory version_,
+        uint256 initialSupply
     ) ERC20(name, symbol) {
-        _mint(msg.sender, 1000e18);
+        _mint(msg.sender, initialSupply);
 
         DOMAIN_SEPARATOR = keccak256(
             abi.encode(
@@ -96,6 +97,8 @@ contract PermitToken is ERC20 {
         require(deadline > block.timestamp, "Signature has expired");
         require(balanceOf(owner) >= value, "Insufficient funds");
 
+        //esto tiene un error enorme, puedo pasar una firma valida pero que el value no coincida con el mensaje que se firmo
+        //no estoy tan seguro, pero vale la pena pegarle una mirada, digo que no porque cuando calcule la firma el value no puede ser distinto
         _transfer(owner, spender, value);
         nonces[owner]++;
     }
