@@ -15,4 +15,4 @@ contract PermitTokenScript is Script {
         console.log("PermitToken deployed at:", address(token));
     }
 }
-//0xE4Da0d2Ab82F18823a6Fd8946354EE49BdE729ab
+

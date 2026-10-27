@@ -76,6 +76,18 @@ forge script script/<YourScript>.s.sol --rpc-url $CELO_SEPOLIA_RPC --account dep
 
 Never use a key that holds real funds for testing.
 
+### Deployed instance
+
+`PermitToken` is deployed on Celo Sepolia (chain ID `11142220`) for on-chain testing of `permit`:
+
+| | |
+|---|---|
+| Address | [`0xE4Da0d2Ab82F18823a6Fd8946354EE49BdE729ab`](https://celo-sepolia.blockscout.com/address/0xE4Da0d2Ab82F18823a6Fd8946354EE49BdE729ab) |
+| Name / symbol | `Permit Token` / `PTK` |
+| EIP-712 version | `1` |
+
+To sign a `permit` for this deployment, the EIP-712 domain must use exactly this name, version, chain ID and address as `verifyingContract`. Any difference produces a different digest and the call reverts with `Invalid signer`.
+
 ## Project layout
 
 ```
