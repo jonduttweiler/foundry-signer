@@ -3,8 +3,6 @@ pragma solidity ^0.8.20;
 
 import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
-//Podemos hacer que esto funcione con USDC? creo que no
-
 contract PermitToken is ERC20 {
     string version;
     address verifyingContract;
