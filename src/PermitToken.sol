@@ -66,8 +66,6 @@ contract PermitToken is ERC20 {
         require(deadline > block.timestamp, "Signature has expired");
         require(balanceOf(owner) >= value, "Insufficient funds");
 
-        //esto tiene un error enorme, puedo pasar una firma valida pero que el value no coincida con el mensaje que se firmo
-        //no estoy tan seguro, pero vale la pena pegarle una mirada, digo que no porque cuando calcule la firma el value no puede ser distinto
         _transfer(owner, spender, value);
         nonces[owner]++;
     }
